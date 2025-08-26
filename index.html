@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小八管家机器人使用手册 - 使用说明书</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-brand">
+                <i class="fas fa-robot"></i>
+                <span>小八管家机器人</span>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-search">
+                    <button class="search-toggle-btn" onclick="toggleSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="nav-search-box" id="navSearchBox" style="display: none;">
+                        <input type="text" id="navGlobalSearch" placeholder="搜索指令...">
+                        <button class="search-clear" id="navSearchClear" onclick="clearNavSearch()" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="nav-search-results" id="navSearchResults" style="display: none;"></div>
+                </div>
+                
+                <!-- 快捷访问按钮 -->
+                <div class="nav-quick-access">
+                    <a href="http://qq.79tap.cn/" target="_blank" class="nav-link-btn robot-login" title="机器人登录">
+                        <i class="fas fa-robot"></i>
+                    </a>
+                    <a href="https://v3.iqapi.cn/user" target="_blank" class="nav-link-btn admin-panel" title="管理后台">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                
+                <button class="home-btn" id="homeBtn" onclick="showHome()" style="display: none;">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <i class="fas fa-robot"></i>
+                <span>功能导航</span>
+            </div>
+            <button class="sidebar-close" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <button class="nav-link active" onclick="showHome()">
+                        <i class="fas fa-home"></i>
+                        <span>首页</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('group-management')">
+                        <i class="fas fa-users-cog"></i>
+                        <span>群管功能</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('qa-system')">
+                        <i class="fas fa-question-circle"></i>
+                        <span>问答系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('ad-detection')">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>广告检测</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('audit-system')">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span>审核系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('points-system')">
+                        <i class="fas fa-coins"></i>
+                        <span>积分系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('points-switch')">
+                        <i class="fas fa-toggle-on"></i>
+                        <span>积分开关</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('points-settings')">
+                        <i class="fas fa-cogs"></i>
+                        <span>积分设置</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('card-key-system')">
+                        <i class="fas fa-key"></i>
+                        <span>卡密系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('title-management')">
+                        <i class="fas fa-crown"></i>
+                        <span>头衔管理</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('management-settings')">
+                        <i class="fas fa-user-cog"></i>
+                        <span>管理设置</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('business-card')">
+                        <i class="fas fa-id-card"></i>
+                        <span>名片管理</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('human-verification')">
+                        <i class="fas fa-user-check"></i>
+                        <span>人机验证</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('blackwhite-list')">
+                        <i class="fas fa-list-alt"></i>
+                        <span>黑白名单</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('lottery-system')">
+                        <i class="fas fa-gift"></i>
+                        <span>抽奖系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('clear-system')">
+                        <i class="fas fa-user-minus"></i>
+                        <span>清人系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('card-distribution')">
+                        <i class="fas fa-credit-card"></i>
+                        <span>发卡系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('speech-stats')">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>发言统计</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('prompt-system')">
+                        <i class="fas fa-bell"></i>
+                        <span>提示系统</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('scheduled-task')">
+                        <i class="fas fa-clock"></i>
+                        <span>定时任务</span>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" onclick="showPage('spam-detection')">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>刷屏检测</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="sidebar-info">
+                <i class="fas fa-info-circle"></i>
+                <span>版本 2.0</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 侧边栏遮罩 -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 首页内容 -->
+        <div class="page-container" id="home-page">
+            <!-- 紧凑英雄区域 -->
+            <section class="hero compact">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="hero-text">
+                            <h1 class="hero-title">小八管家机器人使用手册</h1>
+                            <p class="hero-subtitle">智能群组管理解决方案</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 紧凑功能导航区域 -->
+            <section class="features-navigation compact">
+                <div class="container">
+                    <h2 class="section-title compact">
+                        <i class="fas fa-th-large"></i>
+                        功能导航
+                    </h2>
+                    
+                    <div class="features-grid compact">
+                        <div class="feature-nav-card compact" onclick="showPage('group-management')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>群管功能</h3>
+                                <p>成员管理、消息控制、权限设置</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('qa-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>问答系统</h3>
+                                <p>智能问答、自定义问题答案</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('ad-detection')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>广告检测</h3>
+                                <p>智能广告识别、自动广告处理</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('audit-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>审核系统</h3>
+                                <p>消息审核、内容过滤、自动处理</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('points-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>积分系统</h3>
+                                <p>积分管理、签到奖励、兑换商城</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('points-switch')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-toggle-on"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>积分开关</h3>
+                                <p>功能开关控制、系统配置管理</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('points-settings')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>积分设置</h3>
+                                <p>参数配置、数量设置、比例调整</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('card-key-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>卡密系统</h3>
+                                <p>卡密管理、生成卡密、卡密查询</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('title-management')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>头衔管理</h3>
+                                <p>头衔设置、申请管理、头衔禁词</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('management-settings')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-user-cog"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>管理设置</h3>
+                                <p>管理员设置、超管管理、权限配置</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('business-card')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>名片管理</h3>
+                                <p>昵称管理、名片设置、违规检测</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('human-verification')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>人机验证</h3>
+                                <p>人机验证、入群认证、反机器人</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('blackwhite-list')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-list-alt"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>黑白名单</h3>
+                                <p>成员权限管理、黑白名单控制</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('lottery-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>抽奖系统</h3>
+                                <p>群内抽奖活动管理、奖品设置与抽奖控制</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('clear-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-user-minus"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>清人系统</h3>
+                                <p>自动清理非活跃成员、清人模式配置</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('card-distribution')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>发卡系统</h3>
+                                <p>商品管理与发卡功能、系统配置设置</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('speech-stats')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>发言统计</h3>
+                                <p>发言数据统计、排行榜查询、数据分析</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('prompt-system')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>提示系统</h3>
+                                <p>群内事件提醒、欢迎词设置、状态提示</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('scheduled-task')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>定时任务</h3>
+                                <p>自动化任务管理、定时执行操作</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+
+                        <div class="feature-nav-card compact" onclick="showPage('spam-detection')">
+                            <div class="feature-nav-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="feature-nav-content">
+                                <h3>刷屏检测</h3>
+                                <p>刷屏检测、发言频率控制、数量限制</p>
+                            </div>
+                            <div class="feature-nav-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 群管功能页面 -->
+        <div class="page-container" id="group-management-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-users-cog"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">群管功能</h1>
+                                    <p class="page-description">基础群组管理操作，包括成员管理、消息控制等核心功能</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="commandSearch" placeholder="搜索群管指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="commandsTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">群管指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="commandsTableBody">
+                                    <!-- 指令数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 问答系统页面 -->
+        <div class="page-container" id="qa-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">问答系统</h1>
+                                    <p class="page-description">智能问答功能，支持自定义问题和答案，让机器人更好地服务群友</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="qaSearch" placeholder="搜索问答指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 问答指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="qaTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">问答指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="qaTableBody">
+                                    <!-- 问答数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 广告检测页面 -->
+        <div class="page-container" id="ad-detection-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">广告检测</h1>
+                                    <p class="page-description">智能广告识别与处理功能，自动检测和管理群内广告内容</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="adSearch" placeholder="搜索广告检测指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 广告检测指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="adTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">广告检测指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adTableBody">
+                                    <!-- 广告检测数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 审核系统页面 -->
+        <div class="page-container" id="audit-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-clipboard-check"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">审核系统</h1>
+                                    <p class="page-description">消息审核与内容过滤功能，自动检测和处理不当内容</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="auditSystemSearch" placeholder="搜索审核系统指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 审核系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="auditSystemTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">审核系统指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="auditSystemTableBody">
+                                    <!-- 审核系统数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 积分系统页面 -->
+        <div class="page-container" id="points-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-coins"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">积分系统</h1>
+                                    <p class="page-description">积分管理与奖励功能，支持签到、转账、兑换商城等功能</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="pointsSystemSearch" placeholder="搜索积分系统指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 积分系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="pointsSystemTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">积分系统指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pointsSystemTableBody">
+                                    <!-- 积分系统数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 积分开关页面 -->
+        <div class="page-container" id="points-switch-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-toggle-on"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">积分开关</h1>
+                                    <p class="page-description">积分系统功能开关控制，管理各项积分功能的启用状态</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="pointsSwitchSearch" placeholder="搜索积分开关指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 积分开关指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="pointsSwitchTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">积分开关指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pointsSwitchTableBody">
+                                    <!-- 积分开关数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 积分设置页面 -->
+        <div class="page-container" id="points-settings-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">积分设置</h1>
+                                    <p class="page-description">积分系统参数配置，设置积分获取数量、比例和各项参数</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="pointsSettingsSearch" placeholder="搜索积分设置指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 积分设置指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="pointsSettingsTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">积分设置指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pointsSettingsTableBody">
+                                    <!-- 积分设置数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 卡密系统页面 -->
+        <div class="page-container" id="card-key-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">卡密系统</h1>
+                                    <p class="page-description">卡密管理功能，包括卡密生成、查询和删除等操作</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="cardKeySystemSearch" placeholder="搜索卡密系统指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 卡密系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="cardKeySystemTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">卡密系统指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cardKeySystemTableBody">
+                                    <!-- 卡密系统数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 头衔管理页面 -->
+        <div class="page-container" id="title-management-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">头衔管理</h1>
+                                    <p class="page-description">头衔设置与管理功能，包括头衔申请、禁词设置和权限管理</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="titleManagementSearch" placeholder="搜索头衔管理指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 头衔管理指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="titleManagementTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">头衔管理指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="titleManagementTableBody">
+                                    <!-- 头衔管理数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 管理设置页面 -->
+        <div class="page-container" id="management-settings-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-user-cog"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">管理设置</h1>
+                                    <p class="page-description">管理员权限设置功能，包括管理员任免、超管管理和权限配置</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="managementSettingsSearch" placeholder="搜索管理设置指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 管理设置指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="managementSettingsTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">管理设置指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="managementSettingsTableBody">
+                                    <!-- 管理设置数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 名片管理页面 -->
+        <div class="page-container" id="business-card-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">名片管理</h1>
+                                    <p class="page-description">昵称管理与设置功能，支持名片格式化、违规检测和自动管理</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="businessCardSearch" placeholder="搜索名片管理指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 名片管理指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="businessCardTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">名片管理指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="businessCardTableBody">
+                                    <!-- 名片管理数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 人机验证页面 -->
+        <div class="page-container" id="human-verification-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">人机验证</h1>
+                                    <p class="page-description">人机验证与入群认证功能，防止机器人和恶意用户进入群聊</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="humanVerificationSearch" placeholder="搜索人机验证指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 人机验证指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="humanVerificationTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">人机验证指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="humanVerificationTableBody">
+                                    <!-- 人机验证数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 黑白名单页面 -->
+        <div class="page-container" id="blackwhite-list-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-list-alt"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">黑白名单</h1>
+                                    <p class="page-description">成员权限管理功能，控制群员访问权限和功能使用范围</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="blackwhiteSearch" placeholder="搜索黑白名单指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 黑白名单指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="blackwhiteTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">黑白名单指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="blackwhiteTableBody">
+                                    <!-- 黑白名单数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 清人系统页面 -->
+        <div class="page-container" id="clear-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-user-minus"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">清人系统</h1>
+                                    <p class="page-description">自动清理非活跃成员功能，支持多种清理模式和灵活配置</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="clearSystemSearch" placeholder="搜索清人系统指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 清人系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="clearSystemTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">清人系统指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="clearSystemTableBody">
+                                    <!-- 清人系统数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 抽奖系统页面 -->
+        <div class="page-container" id="lottery-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">抽奖系统</h1>
+                                    <p class="page-description">群内抽奖活动管理，奖品设置与抽奖控制功能</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="lotterySystemSearch" placeholder="搜索抽奖指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 抽奖系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="lotterySystemTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">抽奖指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lotterySystemTableBody">
+                                    <!-- 指令数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 发卡系统页面 -->
+        <div class="page-container" id="card-distribution-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">发卡系统</h1>
+                                    <p class="page-description">商品管理与发卡功能，支持商品分类、商品查询和系统配置</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="cardDistributionSearch" placeholder="搜索发卡系统指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 发卡系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="cardDistributionTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">发卡系统指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cardDistributionTableBody">
+                                    <!-- 发卡系统数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 发言统计页面 -->
+        <div class="page-container" id="speech-stats-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">发言统计</h1>
+                                    <p class="page-description">群成员发言数据统计功能，支持查询个人发言、排行榜和数据重置</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="speechStatsSearch" placeholder="搜索发言统计指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 发言统计指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="speechStatsTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">发言统计指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="speechStatsTableBody">
+                                    <!-- 发言统计数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 提示系统页面 -->
+        <div class="page-container" id="prompt-system-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">提示系统</h1>
+                                    <p class="page-description">群内事件提醒功能，支持入群、退群、管理变动等各种提示功能</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="promptSystemSearch" placeholder="搜索提示系统指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 提示系统指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="promptSystemTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">提示系统指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="promptSystemTableBody">
+                                    <!-- 提示系统数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 定时任务页面 -->
+        <div class="page-container" id="scheduled-task-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">定时任务</h1>
+                                    <p class="page-description">自动化任务管理功能，支持定时执行各种群管操作和提醒任务</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="scheduledTaskSearch" placeholder="搜索定时任务指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 定时任务指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="scheduledTaskTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">定时任务指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scheduledTaskTableBody">
+                                    <!-- 定时任务数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 刷屏检测页面 -->
+        <div class="page-container" id="spam-detection-page" style="display: none;">
+            <section class="page-header compact">
+                <div class="container">
+                    <div class="page-header-content">
+                        <div class="page-title-section">
+                            <div class="page-title-group">
+                                <div class="page-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="page-title-info">
+                                    <h1 class="page-title">刷屏检测</h1>
+                                    <p class="page-description">刷屏检测与频率控制功能，防止群内刷屏和维护正常聊天秩序</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="commands-section">
+                <div class="container">
+                    <!-- 搜索框 -->
+                    <div class="search-container">
+                        <div class="search-box">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="spamSearch" placeholder="搜索刷屏检测指令或功能...">
+                        </div>
+                    </div>
+
+                    <!-- 刷屏检测指令表格 -->
+                    <div class="commands-table-container">
+                        <div class="table-wrapper">
+                            <table class="commands-table" id="spamTable">
+                                <thead>
+                                    <tr>
+                                        <th class="command-col">刷屏检测指令</th>
+                                        <th class="description-col">指令说明</th>
+                                        <th class="example-col">指令操作示范</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="spamTableBody">
+                                    <!-- 刷屏检测数据将通过JavaScript动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <i class="fas fa-robot"></i>
+                    <span>小八管家机器人</span>
+                </div>
+                <p class="footer-text">智能群组管理，让管理更简单</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

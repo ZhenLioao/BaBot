@@ -383,12 +383,12 @@ const pointsSystemCommands = [
     {
         command: '送积分+QQ+数量',
         description: '给某人送积分',
-        example: '送积分750708031 200'
+        example: '送积分1867608 200'
     },
     {
         command: '扣积分+QQ+数量',
         description: '扣除某个人的一定积分',
-        example: '扣积分750708031 200'
+        example: '扣积分1867608 200'
     },
     {
         command: '全员送积分+数量',
@@ -403,7 +403,7 @@ const pointsSystemCommands = [
     {
         command: '积分转让+QQ+数量',
         description: '将自己的积分转让给某人',
-        example: '积分转让750708031 200'
+        example: '积分转让1867608 200'
     },
     {
         command: '积分排行',
@@ -767,7 +767,7 @@ const businessCardCommands = [
     {
         command: '删记录@某人',
         description: '删除本群某个人的名片记录',
-        example: '删记录@皇室750708031'
+        example: '删记录@皇室1867608'
     },
     {
         command: '改名片@某人 新名片',

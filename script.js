@@ -373,7 +373,7 @@ const pointsSystemCommands = [
     {
         command: '查积分@某人',
         description: '查看某人的积分，不加艾特查自己',
-        example: '查积分@星空⁷⁵⁰⁷⁰⁸⁰³¹'
+        example: '查积分@吃口理理'
     },
     {
         command: '充积分+数量',
@@ -418,7 +418,7 @@ const pointsSystemCommands = [
     {
         command: '删签到@某人',
         description: '删除某人的签到记录',
-        example: '删签到@星空⁷⁵⁰⁷⁰⁸⁰³¹'
+        example: '删签到@吃口理理'
     }
 ];
 
